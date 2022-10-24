@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Test2Service;
+
 //모든 요청중 .mvc로 끝나면 모두 받기
 @WebServlet("*.mvc")
 public class HomeController extends HttpServlet {
@@ -24,8 +26,24 @@ public class HomeController extends HttpServlet {
 		if(url.contains("main.mvc")) {
 			viewName = "main.jsp";
 		} else if(url.contains("test1.mvc")) {
+			// 파라미터 데이터 추출
+			String str1 = request.getParameter("data1");
+			String str2 = request.getParameter("data2");
+			
+			int number1 = Integer.parseInt(str1);
+			int number2 = Integer.parseInt(str2);
+			
+			int result = number1 + number2;
+			System.out.println(result);
+			request.setAttribute("result", result);
+
 			viewName = "test1.jsp";
 		} else if(url.contains("test2.mvc")) {
+			
+			int result = Test2Service.minus(request);
+			
+			request.setAttribute("result", result);
+			
 			viewName = "test2.jsp";
 		}
 		

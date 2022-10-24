@@ -7,8 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>메인요청</h1>
-	<a href="test1.mvc?data1=100&data2=200">test1</a><br>
-	<a href="test2.mvc?data1=100&data2=200">test2</a><br>
+	<h1>Hello MVC index.jsp</h1>
 </body>
 </html>

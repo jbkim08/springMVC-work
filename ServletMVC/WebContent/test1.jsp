@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1>test1요청</h1>
+	<h3>result : ${result}</h3>
 </body>
 </html>
