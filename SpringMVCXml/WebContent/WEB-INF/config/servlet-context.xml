@@ -16,5 +16,21 @@
 	
 	<!-- 스캔할 bean들이 모여있는 패키지를 지정한다. -->
 	<context:component-scan base-package="com.demo.controller"/>
+	
+	<!-- Controller의 메서드에서 반환하는 문자열 앞 뒤에 붙힐 경로 정보를 셋팅한다. -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 정적파일(이미지, 사운드, 동영상, JS, CSS 등등) 경로 셋팅 -->
+	<resources mapping="/**" location="/resources/"/>
+
 
 </beans:beans>
+
+
+
+
+

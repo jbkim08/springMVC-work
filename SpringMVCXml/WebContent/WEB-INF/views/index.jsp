@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1>Hello MVC index.jsp</h1>
+	<img src="image/spring-logo.svg">
 </body>
 </html>
