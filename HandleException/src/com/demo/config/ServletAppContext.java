@@ -3,13 +3,9 @@ package com.demo.config;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import com.demo.interceptor.TestInterceptor1;
 
 //Spring MVC 관련된 설정을 하는 클래스
 @Configuration
@@ -17,6 +13,7 @@ import com.demo.interceptor.TestInterceptor1;
 @EnableWebMvc
 //스캔할 패키지를 지정한다.
 @ComponentScan("com.demo.controller")
+@ComponentScan("com.demo.exceptions")
 public class ServletAppContext implements WebMvcConfigurer {
 	
 	// Controller의 메서드가 반환하는 jsp의 이름 앞뒤에 경로와 확장자를 붙혀주도록 설정한다.
@@ -32,17 +29,4 @@ public class ServletAppContext implements WebMvcConfigurer {
 		WebMvcConfigurer.super.addResourceHandlers(registry);
 		registry.addResourceHandler("/**").addResourceLocations("/resources/");
 	}	
-	
-	// 인터셉터 등록
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		
-		WebMvcConfigurer.super.addInterceptors(registry);
-		
-		InterceptorRegistration reg1 = registry.addInterceptor(new TestInterceptor1());
-		
-		reg1.addPathPatterns("/**");  // 모든 요청 포함
-		reg1.excludePathPatterns("/"); // 기본 요청 제외
-
-	}
 }

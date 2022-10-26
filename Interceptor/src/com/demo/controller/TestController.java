@@ -17,4 +17,16 @@ public class TestController {
 		System.out.println("test2");
 		return "test2";
 	}
+	
+	@GetMapping("/sub1/test3")
+	public String test3() {
+		System.out.println("sub1/test3");
+		return "test3";
+	}
+	
+	@GetMapping("/sub1/test4")
+	public String test4() {
+		System.out.println("sub1/test4");
+		return "test4";
+	}	
 }
