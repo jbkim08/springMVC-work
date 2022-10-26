@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.demo.beans.Product;
@@ -33,16 +34,16 @@ public class TestController {
 	}
 	
 	@GetMapping("/input_product")
-	public String input_product(Product product) {
+	public String input_product(@ModelAttribute Product product) {
 		
 		return "input_product";
 	}
 	
 	@PostMapping("/input_product_pro")
-	public String input_product_pro(@Valid User user, BindingResult result) {
+	public String input_product_pro(@Valid Product product, BindingResult result) {
 		
 		if(result.hasErrors()) {
-			return "input_data";
+			return "input_product";
 		}
 		
 		return "input_success";
