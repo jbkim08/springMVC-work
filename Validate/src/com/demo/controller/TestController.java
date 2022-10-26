@@ -46,7 +46,7 @@ public class TestController {
 			return "input_product";
 		}
 		
-		return "input_success";
+		return "input_product_success";
 	}
 	
 }
