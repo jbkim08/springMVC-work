@@ -25,16 +25,16 @@
 
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a href="login.html" class="nav-link">로그인</a>
+        <a href="${root }user/login" class="nav-link">로그인</a>
       </li>
       <li class="nav-item">
-        <a href="join.html" class="nav-link">회원가입</a>
+        <a href="${root }user/join" class="nav-link">회원가입</a>
       </li>
       <li class="nav-item">
-        <a href="modify_user.html" class="nav-link">정보수정</a>
+        <a href="${root }user/modify" class="nav-link">정보수정</a>
       </li>
       <li class="nav-item">
-        <a href="index.html" class="nav-link">로그아웃</a>
+        <a href="${root }user/logout" class="nav-link">로그아웃</a>
       </li>
     </ul>
   </div>
