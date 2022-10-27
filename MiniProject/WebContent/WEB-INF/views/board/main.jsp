@@ -152,7 +152,7 @@
           </div>
 
           <div class="text-right">
-            <a href="board_write.html" class="btn btn-primary">글쓰기</a>
+            <a href="${root }board/write" class="btn btn-primary">글쓰기</a>
           </div>
         </div>
       </div>

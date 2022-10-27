@@ -1,11 +1,26 @@
 package com.demo.config;
 
+import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.mapper.MapperFactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.demo.interceptor.MenuInterceptor;
+import com.demo.mapper.BoardMapper;
+import com.demo.mapper.MenuMapper;
+import com.demo.service.MenuService;
 
 //Spring MVC 관련된 설정을 하는 클래스
 @Configuration
@@ -13,7 +28,24 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 //스캔할 패키지를 지정한다.
 @ComponentScan("com.demo.controller")
+@ComponentScan("com.demo.service")
+@PropertySource("/WEB-INF/properties/db.properties")
 public class ServletAppContext implements WebMvcConfigurer {
+	
+	@Value("${db.classname}")
+	private String db_classname;
+	
+	@Value("${db.url}")
+	private String db_url;	
+
+	@Value("${db.username}")
+	private String db_username;
+	
+	@Value("${db.password}")
+	private String db_password;
+	
+	@Autowired
+	private MenuService menuService;
 	
 	// Controller의 메서드가 반환하는 jsp의 이름 앞뒤에 경로와 확장자를 붙혀주도록 설정한다.
 	@Override
@@ -28,4 +60,61 @@ public class ServletAppContext implements WebMvcConfigurer {
 		WebMvcConfigurer.super.addResourceHandlers(registry);
 		registry.addResourceHandler("/**").addResourceLocations("/resources/");
 	}	
+	
+	// 데이터베이스 접속 정보 관리(commons import)
+	@Bean
+	public BasicDataSource dataSource() {
+		BasicDataSource source = new BasicDataSource();
+		source.setDriverClassName(db_classname);
+		source.setUrl(db_url);
+		source.setUsername(db_username);
+		source.setPassword(db_password);
+		
+		return source;
+	}
+	
+	// 쿼리문과 접속 관리하는 객체
+	@Bean
+	public SqlSessionFactory factory(BasicDataSource source) throws Exception{
+		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+		factoryBean.setDataSource(source);
+		SqlSessionFactory factory = factoryBean.getObject();
+		return factory;
+	}
+	
+	// 쿼리문 실행을 위한 객체 (mapper 인터페이스를 주입)
+	@Bean
+	public MapperFactoryBean<BoardMapper> getBoardMapper(SqlSessionFactory factory) throws Exception{
+		MapperFactoryBean<BoardMapper> factoryBean = new MapperFactoryBean<BoardMapper>(BoardMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+		return factoryBean;
+	}
+	
+	@Bean
+	public MapperFactoryBean<MenuMapper> getMenuMapper(SqlSessionFactory factory) throws Exception{
+		MapperFactoryBean<MenuMapper> factoryBean = new MapperFactoryBean<MenuMapper>(MenuMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+		return factoryBean;
+	}
+	
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		
+		WebMvcConfigurer.super.addInterceptors(registry);
+		
+		MenuInterceptor menuInterceptor = new MenuInterceptor(menuService);
+		
+		InterceptorRegistration reg1 = registry.addInterceptor(menuInterceptor);
+		
+		reg1.addPathPatterns("/**"); //모든 요청
+	}
+		
 }
+
+
+
+
+
+
+
+
