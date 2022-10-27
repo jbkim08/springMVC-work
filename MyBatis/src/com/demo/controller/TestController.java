@@ -1,7 +1,10 @@
 package com.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -26,4 +29,12 @@ public class TestController {
 		mapper1.insert_data(dataBean);
 		return "input_pro";
 	}
+	
+	@GetMapping("/read_data")
+	public String read_data(Model model) {
+		List<DataBean> list = mapper1.select_data();
+		model.addAttribute("list", list); 
+		return "read_data"; 
+	}
+	
 }
