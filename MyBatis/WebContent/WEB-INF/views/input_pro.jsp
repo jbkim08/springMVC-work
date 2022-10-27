@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<a href='input_data'>input_data</a><br/>
-	<a href='read_data'>read_data</a><br/>
+	<h1>저장완료</h1>
 </body>
 </html>
