@@ -80,6 +80,22 @@ public class UserController {
 		return "user/modify";
 	}
 	
+	@PostMapping("/modify_pro")
+	public String modify_pro(@Valid @ModelAttribute("modifyUserBean") UserBean modifyUserBean,
+							BindingResult result, Model model) {
+		
+		if(result.hasErrors()) {
+			return "user/modify";
+		}
+		if(!modifyUserBean.getUser_pw().equals(modifyUserBean.getUser_pw2())) {
+			model.addAttribute("msg", "비밀번호가 같지 않습니다");
+			return "user/modify";
+		}
+		//DB에 수정된 비밀번호를 저장한다.
+		
+		return "user/modify_success";
+	}
+	
 	@GetMapping("/logout")
 	public String logout() {
 		loginUserBean.setUserLogin(false); //세션의 로그인 상태를 false로 한다.
