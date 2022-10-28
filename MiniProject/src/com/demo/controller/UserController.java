@@ -80,6 +80,13 @@ public class UserController {
 	
 	@GetMapping("/logout")
 	public String logout() {
+		loginUserBean.setUserLogin(false); //세션의 로그인 상태를 false로 한다.
 		return "user/logout";
 	}
+	
+	@GetMapping("/not_login")
+	public String not_login() {
+		return "user/not_login";
+	}
+
 }

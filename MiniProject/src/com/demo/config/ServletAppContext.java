@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.demo.beans.LoginUserBean;
+import com.demo.interceptor.CheckLoginInterceptor;
 import com.demo.interceptor.MenuInterceptor;
 import com.demo.mapper.BoardMapper;
 import com.demo.mapper.MenuMapper;
@@ -117,11 +118,14 @@ public class ServletAppContext implements WebMvcConfigurer {
 		
 		WebMvcConfigurer.super.addInterceptors(registry);
 		
-		MenuInterceptor menuInterceptor = new MenuInterceptor(menuService, loginUserBean);
-		
-		InterceptorRegistration reg1 = registry.addInterceptor(menuInterceptor);
-		
+		MenuInterceptor menuInterceptor = new MenuInterceptor(menuService, loginUserBean);		
+		InterceptorRegistration reg1 = registry.addInterceptor(menuInterceptor);		
 		reg1.addPathPatterns("/**"); //모든 요청
+		
+		CheckLoginInterceptor checkLoginInterceptor = new CheckLoginInterceptor(loginUserBean);
+		InterceptorRegistration reg2 = registry.addInterceptor(checkLoginInterceptor);
+		reg2.addPathPatterns("/user/modify", "/user/logout", "/board/*");
+		reg2.excludePathPatterns("/board/main"); //기본 게시판은 아무나 볼수 있다
 	}
 		
 }
