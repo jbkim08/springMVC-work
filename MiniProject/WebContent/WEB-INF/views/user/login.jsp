@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="root" value="${pageContext.request.contextPath }/" />    
 <!DOCTYPE html>
 <html>
@@ -31,20 +32,22 @@
                 <h3>로그인 실패</h3>
                 <p>아이디 비밀번호를 확인해주세요</p>
               </div>
-              <form action="index.html" method="post">
+              <form:form action="${root }user/login_pro" modelAttribute="loginBean">
                 <div class="form-group">
-                  <label for="user_id">아이디</label>
-                  <input type="text" id="user_id" name="user_id" class="form-control" />
+                  <form:label path="user_id">아이디</form:label>
+                  <form:input path="user_id" class="form-control" />
+                  <form:errors path="user_id" style="color:coral" />
                 </div>
                 <div class="form-group">
-                  <label for="user_pw">비밀번호</label>
-                  <input type="password" id="user_pw" name="user_pw" class="form-control" />
+                  <form:label path="user_pw">비밀번호</form:label>
+                  <form:input path="user_pw" class="form-control" />
+                  <form:errors path="user_pw" style="color:coral" />
                 </div>
                 <div class="form-group text-right">
                   <button type="submit" class="btn btn-primary">로그인</button>
-                  <a href="join.html" class="btn btn-danger">회원가입</a>
+                  <a href="${root }user/join" class="btn btn-danger">회원가입</a>
                 </div>
-              </form>
+              </form:form>
             </div>
           </div>
         </div>

@@ -28,6 +28,7 @@ import com.demo.service.MenuService;
 //Controller 어노테이션이 셋팅되어 있는 클래스를 Controller로 등록한다.
 @EnableWebMvc
 //스캔할 패키지를 지정한다.
+@ComponentScan("com.demo.beans")
 @ComponentScan("com.demo.controller")
 @ComponentScan("com.demo.service")
 @PropertySource("/WEB-INF/properties/db.properties")

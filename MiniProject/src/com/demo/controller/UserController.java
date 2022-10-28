@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.demo.beans.LoginUserBean;
 import com.demo.beans.UserBean;
 import com.demo.service.UserService;
 
@@ -21,9 +23,30 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	//세션에 저장된 로그인유저객체를 가져온다
+	@Resource(name = "loginUserBean")
+	private LoginUserBean loginUserBean;
+
+
 	@GetMapping("/login")
-	public String login() {
+	public String login(@ModelAttribute("loginBean") LoginUserBean loginBean) {
 		return "user/login";
+	}
+	
+	@PostMapping("/login_pro")
+	public String login_pro(@Valid @ModelAttribute("loginBean") LoginUserBean loginBean,
+							BindingResult result) {
+		if(result.hasErrors()) {
+			return "user/login";
+		}
+		//DB에서 유저가 있는지 검사하여 있을시 로그인유저객체에 저장
+		userService.getLoginUserInfo(loginBean);
+		
+		if(loginUserBean.isUserLogin() == true) {
+			return "user/login_success";
+		} else {
+			return "user/login_fail";
+		}
 	}
 	
 	@GetMapping("/join")
