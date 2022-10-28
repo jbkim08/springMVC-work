@@ -46,6 +46,15 @@ public class UserService {
 			loginUserBean.setUserLogin(true); //로그인 상태
 		}
 	}
+	
+	//현재 로그인상태의 인덱스번호로 아이디와 이름을 얻어서 modifyUserBean 객체에 저장
+	public void getModifyUserInfo(UserBean modifyUserBean) {
+		UserBean temp = userMapper.getModifyUserInfo(loginUserBean.getUser_idx());
+		
+		modifyUserBean.setUser_id(temp.getUser_id());
+		modifyUserBean.setUser_name(temp.getUser_name());
+		modifyUserBean.setUser_idx(loginUserBean.getUser_idx());
+	}
 }
 
 

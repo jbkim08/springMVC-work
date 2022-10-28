@@ -74,7 +74,9 @@ public class UserController {
 	}
 	
 	@GetMapping("/modify")
-	public String modify() {
+	public String modify(@ModelAttribute("modifyUserBean") UserBean modifyUserBean) {
+		//로그인정보를 가지고 있는 loginUserBean에서 아이디 이름을 얻어서 modifyUserBean에 넣기
+		userService.getModifyUserInfo(modifyUserBean);
 		return "user/modify";
 	}
 	

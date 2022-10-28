@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="root" value="${pageContext.request.contextPath }/" /> 
 <!DOCTYPE html>
 <html>
@@ -27,55 +28,33 @@
         <div class="col-sm-6">
           <div class="card shadow">
             <div class="card-body">
-              <form action="modify_user.html" method="post">
-                <div class="form-group">
-                  <label for="user_name">이름</label>
-                  <input
-                    type="text"
-                    id="user_name"
-                    name="user_name"
-                    class="form-control"
-                    value="홍길동"
-                    disabled="disabled"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="user_id">아이디</label>
-                  <input
-                    type="text"
-                    id="user_id"
-                    name="user_id"
-                    class="form-control"
-                    value="abc"
-                    disabled="disabled"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="user_pw">비밀번호</label>
-                  <input
-                    type="password"
-                    id="user_pw"
-                    name="user_pw"
-                    class="form-control"
-                    value="1234"
-                  />
-                </div>
-                <div class="form-group">
-                  <label for="user_pw2">비밀번호 확인</label>
-                  <input
-                    type="password"
-                    id="user_pw2"
-                    name="user_pw2"
-                    class="form-control"
-                    value="1234"
-                  />
-                </div>
-                <div class="form-group">
-                  <div class="text-right">
-                    <button type="submit" class="btn btn-primary">정보수정</button>
-                  </div>
-                </div>
-              </form>
+			<form:form action='${root }user/modify_pro' modelAttribute="modifyUserBean">
+				<form:hidden path="userIdChecked" value="true"  />
+				<div class="form-group">
+					<form:label path="user_name">이름</form:label>
+					<form:input path="user_name" class='form-control' readonly="true"/>
+				</div>
+				<div class="form-group">
+					<form:label path="user_id">아이디</form:label>
+					<form:input path="user_id" class='form-control' readonly="true"/>
+				</div>
+				<div class="form-group">
+					<form:label path="user_pw">비밀번호</form:label>
+					<form:password path="user_pw" class='form-control' showPassword="true" />
+					<form:errors path='user_pw' style='color:coral'/>
+				</div>
+				<div class="form-group">
+					<form:label path="user_pw2">비밀번호 확인</form:label>
+					<form:password path="user_pw2" class='form-control' showPassword="true" />
+					<form:errors path='user_pw2' style='color:coral'/>
+				</div>
+				<div style="color:coral">${msg }</div>
+				<div class="form-group">
+					<div class="text-right">
+						<form:button class='btn btn-primary'>정보수정</form:button>
+					</div>
+				</div>
+			</form:form>
             </div>
           </div>
         </div>

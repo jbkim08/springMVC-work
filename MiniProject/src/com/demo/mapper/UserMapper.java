@@ -21,6 +21,11 @@ public interface UserMapper {
 	@Select("select user_idx, user_name from user_table "
 			+ "where user_id=#{user_id} and user_pw=#{user_pw}")
 	LoginUserBean getLoginUserInfo(LoginUserBean loginBean);
+	
+	//유저의 정보를 가져온다.
+	@Select("select user_id, user_name from user_table "
+			+ "where user_idx = #{user_idx}")
+	UserBean getModifyUserInfo(int user_idx);
 }
 
 
