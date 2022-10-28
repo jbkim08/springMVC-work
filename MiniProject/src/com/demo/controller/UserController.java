@@ -2,6 +2,7 @@ package com.demo.controller;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,10 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.demo.beans.UserBean;
+import com.demo.service.UserService;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
+	
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/login")
 	public String login() {
@@ -36,6 +41,9 @@ public class UserController {
 			model.addAttribute("msg", "비밀번호가 같지 않습니다!");
 			return "user/join";
 		}
+		//DB에 유저 정보를 저장하기
+		userService.addUserInfo(joinUserBean);
+		
 		return "user/join_success"; //가입성공
 	}
 	

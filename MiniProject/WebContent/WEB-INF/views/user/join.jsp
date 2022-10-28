@@ -17,6 +17,37 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+	function checkUserIdExist(){
+		//아이디가 user_id인 인풋태그에서 가져옴
+		const user_id = $("#user_id").val()
+		
+		if(user_id.length == 0){
+			alert('아이디를 입력해주세요')
+			return
+		}
+		
+		$.ajax({
+			url : '${root}user/check/' + user_id,
+			type : 'get',
+			dataType : 'text',
+			success : function(result){
+				if(result.trim() == 'true'){
+					alert('사용할 수 있는 아이디입니다')
+					//userIdChecked를 true로 만들어준다
+					$("#userIdChecked").val('true')
+					$("#joinUserBean #idCheck span").text('') //에러메세지 없애기
+				} else {
+					alert('사용할 수 없는 아이디 입니다')
+					$("#userIdChecked").val('false')
+				}
+			}
+		})
+	}
+	function resetUserIdExist(){
+		$("#userIdChecked").val('false')
+	}
+    </script>
   </head>
   <body>
     <!-- 상단 메뉴 부분 -->
@@ -39,10 +70,14 @@
                   <div class="input-group">
                     <form:input path="user_id" class="form-control" />
                     <div class="input-group-append">
-                      <button type="button" class="btn btn-primary">중복확인</button>
+                      <button type="button" onclick="checkUserIdExist()" class="btn btn-primary">중복확인</button>
                     </div>
                   </div>
                   <form:errors path="user_id" style="color:coral" />
+                </div>
+                <div class="form-group" id="idCheck">
+                	<form:hidden path="userIdChecked" />
+                	<form:errors path="userIdChecked" style="color:coral" />
                 </div>
                 <div class="form-group">
                   <form:label path="user_pw">비밀번호</form:label>
