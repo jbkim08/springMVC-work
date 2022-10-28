@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demo.beans.LoginUserBean;
 import com.demo.beans.UserBean;
@@ -29,7 +30,9 @@ public class UserController {
 
 
 	@GetMapping("/login")
-	public String login(@ModelAttribute("loginBean") LoginUserBean loginBean) {
+	public String login(@ModelAttribute("loginBean") LoginUserBean loginBean, Model model,
+						@RequestParam(value = "fail", defaultValue = "false") boolean fail) {
+		model.addAttribute("fail", fail);
 		return "user/login";
 	}
 	
