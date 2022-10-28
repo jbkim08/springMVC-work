@@ -46,14 +46,15 @@
                 </div>
                 <div class="form-group">
                   <form:label path="user_pw">비밀번호</form:label>
-                  <form:input path="user_pw" class="form-control" />
+                  <form:password showPassword="true" path="user_pw" class="form-control" />
                   <form:errors path="user_pw" style="color:coral" />
                 </div>
                 <div class="form-group">
                   <form:label path="user_pw2">비밀번호 확인</form:label>
-                  <form:input path="user_pw2" class="form-control" />
+                  <form:password showPassword="true" path="user_pw2" class="form-control" />
                   <form:errors path="user_pw2" style="color:coral" />
                 </div>
+                <p style="color:coral">${msg }</p>
                 <div class="form-group">
                   <div class="text-right">
                     <button type="submit" class="btn btn-primary">회원가입</button>
