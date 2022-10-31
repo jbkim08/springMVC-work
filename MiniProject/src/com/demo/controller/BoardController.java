@@ -38,7 +38,14 @@ public class BoardController {
 	}
 
 	@GetMapping("/read")
-	public String read() {
+	public String read(@RequestParam("board_info_idx") int board_info_idx,
+					   @RequestParam("content_idx") int content_idx,
+					   Model model) {
+		model.addAttribute("board_info_idx", board_info_idx);
+		//글 번호로 dB에서 게시글 내용 가져오기
+		ContentBean readContentBean = boardService.getContentInfo(content_idx);
+		model.addAttribute("readContentBean", readContentBean);
+		
 		return "board/read";
 	}
 	

@@ -27,6 +27,14 @@ public interface BoardMapper {
 			"and t1.content_board_idx = #{board_info_idx} order by 1 desc")
 	List<ContentBean> getContentList(int board_info_idx);
 
+	//게시글 상세 정보 가져오기 
+	@Select("select t2.user_name as content_writer_name, " + 
+			"to_char(t1.content_date, 'YYYY-MM-DD') as content_date," + 
+			"t1.content_subject, t1.content_text, t1.content_file " + 
+			"from content_table t1 join user_table t2 " + 
+			"on t1.content_writer_idx = t2.user_idx " + 
+			"and content_idx = #{ ? }")
+	ContentBean getContentInfo(int content_idx);
 }
 
 
