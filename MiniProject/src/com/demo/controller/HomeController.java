@@ -11,7 +11,7 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(HttpServletRequest request) {
-		System.out.println(request.getServletContext().getRealPath("/")); //서버실행시 실제주소
+		//System.out.println(request.getServletContext().getRealPath("/")); //서버실행시 실제주소
 		return "index";
 	}
 }
