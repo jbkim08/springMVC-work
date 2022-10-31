@@ -1,11 +1,21 @@
 package com.demo.beans;
 
+import javax.validation.constraints.NotBlank;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class ContentBean {
 
 	private int content_idx;
+	
+	@NotBlank(message = "제목을 입력해 주세요")
 	private String content_subject;
+	
+	@NotBlank(message = "내용을 입력해 주세요")
 	private String content_text;
-	private String content_file;
+	
+	private MultipartFile upload_file; //실제 업로드 파일(파일객체)
+	private String content_file; //이미지 파일의 이름 
 	private int content_writer_idx; // 유저테이블의 user_idx 번호
 	private int content_board_idx; // 보드정보테이블의 board_info_idx 번호
 	private String content_date; // 작성날짜
@@ -64,6 +74,14 @@ public class ContentBean {
 
 	public void setContent_date(String content_date) {
 		this.content_date = content_date;
+	}
+
+	public MultipartFile getUpload_file() {
+		return upload_file;
+	}
+
+	public void setUpload_file(MultipartFile upload_file) {
+		this.upload_file = upload_file;
 	}
 
 }
