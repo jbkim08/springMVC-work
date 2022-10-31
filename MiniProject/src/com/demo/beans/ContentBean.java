@@ -19,6 +19,15 @@ public class ContentBean {
 	private int content_writer_idx; // 유저테이블의 user_idx 번호
 	private int content_board_idx; // 보드정보테이블의 board_info_idx 번호
 	private String content_date; // 작성날짜
+	private String content_writer_name; //작성자 이름
+	
+	public String getContent_writer_name() {
+		return content_writer_name;
+	}
+
+	public void setContent_writer_name(String content_writer_name) {
+		this.content_writer_name = content_writer_name;
+	}
 
 	public int getContent_idx() {
 		return content_idx;

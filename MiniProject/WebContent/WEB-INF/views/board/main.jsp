@@ -25,7 +25,7 @@
     <div class="container" style="margin-top: 100px">
       <div class="card shadow">
         <div class="card-body">
-          <h4 class="card-title">게시판 이름</h4>
+          <h4 class="card-title">${boardInfoName }</h4>
           <table class="table table-hover" id="board_list">
             <thead>
               <tr>
@@ -36,66 +36,16 @@
               </tr>
             </thead>
             <tbody>
+            
+              <c:forEach var="obj" items="${contentList }" >
               <tr>
-                <td class="text-center d-none d-md-table-cell">10</td>
-                <td><a href="board_read.html">글 제목 입니다</a></td>
-                <td class="text-center d-none d-md-table-cell">홍길동</td>
-                <td class="text-center d-none d-md-table-cell">2018-12-12</td>
+                <td class="text-center d-none d-md-table-cell">${obj.content_idx }</td>
+                <td><a href="${root }board/read">${obj.content_subject }</a></td>
+                <td class="text-center d-none d-md-table-cell">${obj.content_writer_name }</td>
+                <td class="text-center d-none d-md-table-cell">${obj.content_date }</td>
               </tr>
-              <tr>
-                <td class="text-center d-none d-md-table-cell">10</td>
-                <td><a href="board_read.html">글 제목 입니다</a></td>
-                <td class="text-center d-none d-md-table-cell">홍길동</td>
-                <td class="text-center d-none d-md-table-cell">2018-12-12</td>
-              </tr>
-              <tr>
-                <td class="text-center d-none d-md-table-cell">10</td>
-                <td><a href="board_read.html">글 제목 입니다</a></td>
-                <td class="text-center d-none d-md-table-cell">홍길동</td>
-                <td class="text-center d-none d-md-table-cell">2018-12-12</td>
-              </tr>
-              <tr>
-                <td class="text-center d-none d-md-table-cell">10</td>
-                <td><a href="board_read.html">글 제목 입니다</a></td>
-                <td class="text-center d-none d-md-table-cell">홍길동</td>
-                <td class="text-center d-none d-md-table-cell">2018-12-12</td>
-              </tr>
-              <tr>
-                <td class="text-center d-none d-md-table-cell">10</td>
-                <td><a href="board_read.html">글 제목 입니다</a></td>
-                <td class="text-center d-none d-md-table-cell">홍길동</td>
-                <td class="text-center d-none d-md-table-cell">2018-12-12</td>
-              </tr>
-              <tr>
-                <td class="text-center d-none d-md-table-cell">10</td>
-                <td><a href="board_read.html">글 제목 입니다</a></td>
-                <td class="text-center d-none d-md-table-cell">홍길동</td>
-                <td class="text-center d-none d-md-table-cell">2018-12-12</td>
-              </tr>
-              <tr>
-                <td class="text-center d-none d-md-table-cell">10</td>
-                <td><a href="board_read.html">글 제목 입니다</a></td>
-                <td class="text-center d-none d-md-table-cell">홍길동</td>
-                <td class="text-center d-none d-md-table-cell">2018-12-12</td>
-              </tr>
-              <tr>
-                <td class="text-center d-none d-md-table-cell">10</td>
-                <td><a href="board_read.html">글 제목 입니다</a></td>
-                <td class="text-center d-none d-md-table-cell">홍길동</td>
-                <td class="text-center d-none d-md-table-cell">2018-12-12</td>
-              </tr>
-              <tr>
-                <td class="text-center d-none d-md-table-cell">10</td>
-                <td><a href="board_read.html">글 제목 입니다</a></td>
-                <td class="text-center d-none d-md-table-cell">홍길동</td>
-                <td class="text-center d-none d-md-table-cell">2018-12-12</td>
-              </tr>
-              <tr>
-                <td class="text-center d-none d-md-table-cell">10</td>
-                <td><a href="board_read.html">글 제목 입니다</a></td>
-                <td class="text-center d-none d-md-table-cell">홍길동</td>
-                <td class="text-center d-none d-md-table-cell">2018-12-12</td>
-              </tr>
+ 			  </c:forEach>
+ 			  
             </tbody>
           </table>
 

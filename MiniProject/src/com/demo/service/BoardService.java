@@ -1,6 +1,7 @@
 package com.demo.service;
 
 import java.io.File;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -55,4 +56,21 @@ public class BoardService {
 		// DB에 새 게시글 정보 저장
 		boardMapper.addContentInfo(writeContentBean);
 	}
+	
+	public String getBoardInfoName(int board_info_idx) {
+		return boardMapper.getBoardInfoName(board_info_idx);
+	}
+	
+	//게시판별로 해당하는 게시글들을 불러오기
+	public List<ContentBean> getContentList(int board_info_idx){
+		return boardMapper.getContentList(board_info_idx);
+	}
 }
+
+
+
+
+
+
+
+
