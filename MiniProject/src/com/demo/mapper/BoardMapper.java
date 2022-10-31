@@ -4,14 +4,19 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 
 import com.demo.beans.ContentBean;
 
 public interface BoardMapper {
 	
+	//content_idx 값이 나오면 먼저(before) sql문을 실행 결과를 입력한다.
+	@SelectKey(statement = "select content_seq.nextval from dual", 
+			keyProperty = "content_idx", before = true, resultType = int.class)
+	
 	@Insert("insert into content_table(content_idx, content_subject, content_text, " +
 			"content_file, content_writer_idx, content_board_idx, content_date) " +
-			"values (content_seq.nextval, #{content_subject}, #{content_text}, #{content_file, jdbcType=VARCHAR}, " +
+			"values (#{content_idx}, #{content_subject}, #{content_text}, #{content_file, jdbcType=VARCHAR}, " +
 			"#{content_writer_idx}, #{content_board_idx}, sysdate)")
 	void addContentInfo(ContentBean writeContentBean);
 	
