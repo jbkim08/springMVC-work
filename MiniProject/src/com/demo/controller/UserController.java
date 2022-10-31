@@ -92,6 +92,7 @@ public class UserController {
 			return "user/modify";
 		}
 		//DB에 수정된 비밀번호를 저장한다.
+		userService.modifyUserInfo(modifyUserBean);
 		
 		return "user/modify_success";
 	}
