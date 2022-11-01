@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
+import org.apache.ibatis.annotations.Update;
 
 import com.demo.beans.ContentBean;
 
@@ -40,7 +41,19 @@ public interface BoardMapper {
 			"on t1.content_writer_idx = t2.user_idx " + 
 			"and content_idx = #{ ? }")
 	ContentBean getContentInfo(int content_idx);
+	
+	//게시글 업데이트 마이바티스에서 널값이 입력될수도 있을경우 #{변수명, jdbcType=VARCHAR}
+	@Update("update content_table "
+			+ "set content_subject = #{content_subject}, content_text = #{content_text} , "
+			+ "content_file = #{content_file, jdbcType=VARCHAR} "
+			+ "where content_idx = #{content_idx}")
+	void modifyContentInfo(ContentBean modifyContentBean);
 }
+
+
+
+
+
 
 
 

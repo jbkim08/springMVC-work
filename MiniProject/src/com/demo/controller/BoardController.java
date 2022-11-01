@@ -90,6 +90,19 @@ public class BoardController {
 		return "board/modify";
 	}
 	
+	@PostMapping("/modify_pro")
+	public String modify_pro(@Valid @ModelAttribute("modifyContentBean") ContentBean modifyContentBean,
+							 BindingResult result) {
+		
+		if(result.hasErrors()) {
+			return "board/modify";
+		}
+		// DB에 수정된 게시글을 업데이트한다
+		boardService.modifyContentInfo(modifyContentBean);
+		
+		return "board/modify_success";
+	}
+	
 	@GetMapping("/delete")
 	public String delete() {
 		return "board/delete";

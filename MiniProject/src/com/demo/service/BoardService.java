@@ -81,6 +81,16 @@ public class BoardService {
 		modifyContentBean.setContent_text(temp.getContent_text());
 		modifyContentBean.setContent_file(temp.getContent_file());		
 	}
+	
+	public void modifyContentInfo(ContentBean modifyContentBean) {
+		//업로드 파일이 있을경우에 이름(content_file)을 입력한다.
+		MultipartFile upload_file = modifyContentBean.getUpload_file();
+		if (upload_file.getSize() > 0) {
+			String file_name = saveUploadFile(upload_file); //파일을 업로드 폴더에 저장
+			modifyContentBean.setContent_file(file_name); //파일의 이름을 저장
+		}
+		boardMapper.modifyContentInfo(modifyContentBean);
+	}
 
 }
 
