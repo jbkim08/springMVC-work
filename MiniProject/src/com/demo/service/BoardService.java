@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.beans.ContentBean;
 import com.demo.beans.LoginUserBean;
+import com.demo.beans.PageBean;
 import com.demo.mapper.BoardMapper;
 
 @Service
@@ -107,8 +108,25 @@ public class BoardService {
 	public void deleteContentInfo(int content_idx) {
 		boardMapper.deleteContentInfo(content_idx);
 	}
+	
+	//페이지네이션 계산 메소드
+	public PageBean getContentCnt(int content_board_idx, int currentPage) {
+		// 총 게시글 갯수 세기
+		int content_cnt = boardMapper.getContentCnt(content_board_idx);
+		
+		PageBean pageBean = new PageBean(content_cnt, currentPage, page_listcnt, page_paginationcnt);
+		
+		return pageBean; //계산된 pageBean 객체 리턴
+	}
 
 }
+
+
+
+
+
+
+
 
 
 

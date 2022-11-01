@@ -53,7 +53,11 @@ public interface BoardMapper {
 	
 	//게시글 번호로 글을 삭제한다
 	@Delete("delete from content_table where content_idx=#{content_idx}")
-	void deleteContentInfo(int content_idx);	
+	void deleteContentInfo(int content_idx);
+
+	//게시판종류에 따라서 총 개시물 수
+	@Select("select count(*) from content_table where content_board_idx = #{content_board_idx}")	
+	int getContentCnt(int content_board_idx);	
 }
 
 
