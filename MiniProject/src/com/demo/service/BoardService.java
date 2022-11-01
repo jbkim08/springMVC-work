@@ -70,6 +70,18 @@ public class BoardService {
 	public ContentBean getContentInfo(int content_idx) {
 		return boardMapper.getContentInfo(content_idx);
 	}
+	
+	//글 인덱스 번호로 검색해서 글 정보를 modifyContentBean 입력한다.
+	public void getContents(ContentBean modifyContentBean) {
+		ContentBean temp = boardMapper.getContentInfo(modifyContentBean.getContent_idx());
+		
+		modifyContentBean.setContent_writer_name(temp.getContent_writer_name());
+		modifyContentBean.setContent_date(temp.getContent_date());
+		modifyContentBean.setContent_subject(temp.getContent_subject());
+		modifyContentBean.setContent_text(temp.getContent_text());
+		modifyContentBean.setContent_file(temp.getContent_file());		
+	}
+
 }
 
 

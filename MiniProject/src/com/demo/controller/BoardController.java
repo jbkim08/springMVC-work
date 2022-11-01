@@ -77,7 +77,16 @@ public class BoardController {
 	}
 	
 	@GetMapping("/modify")
-	public String modify() {
+	public String modify(@RequestParam("board_info_idx") int board_info_idx,
+						 @RequestParam("content_idx") int content_idx, Model model,
+						 @ModelAttribute("modifyContentBean") ContentBean modifyContentBean) {
+		//전달된 게시판번호와 게시글번호를 빈 객체 modify빈에 입력
+		modifyContentBean.setContent_board_idx(board_info_idx);
+		modifyContentBean.setContent_idx(content_idx);
+		
+		boardService.getContents(modifyContentBean); //나머지 정보들을 입력
+		model.addAttribute("modifyContentBean", modifyContentBean);
+		
 		return "board/modify";
 	}
 	
