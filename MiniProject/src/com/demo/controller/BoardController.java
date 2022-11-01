@@ -104,7 +104,12 @@ public class BoardController {
 	}
 	
 	@GetMapping("/delete")
-	public String delete() {
+	public String delete(@RequestParam("board_info_idx") int board_info_idx,
+			 			 @RequestParam("content_idx") int content_idx, Model model) {
+		
+		boardService.deleteContentInfo(content_idx); //게시글 삭제
+		model.addAttribute("board_info_idx", board_info_idx);
+		
 		return "board/delete";
 	}
 	

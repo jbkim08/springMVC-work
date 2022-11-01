@@ -91,6 +91,10 @@ public class BoardService {
 		}
 		boardMapper.modifyContentInfo(modifyContentBean);
 	}
+	
+	public void deleteContentInfo(int content_idx) {
+		boardMapper.deleteContentInfo(content_idx);
+	}
 
 }
 
