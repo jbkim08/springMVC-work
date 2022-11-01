@@ -85,4 +85,15 @@ public class BoardController {
 	public String delete() {
 		return "board/delete";
 	}
+	
+	//수정,삭제 권한이 없는데 요청했을경우에
+	@GetMapping("/not_writer")
+	public String not_writer() {
+		return "board/not_writer";
+	}
 }
+
+
+
+
+
