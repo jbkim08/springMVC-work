@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectKey;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.session.RowBounds;
 
 import com.demo.beans.ContentBean;
 
@@ -32,7 +33,7 @@ public interface BoardMapper {
 			"JOIN user_table t2 " + 
 			"ON t1.content_writer_idx = t2.user_idx " + 
 			"and t1.content_board_idx = #{board_info_idx} order by 1 desc")
-	List<ContentBean> getContentList(int board_info_idx);
+	List<ContentBean> getContentList(int board_info_idx, RowBounds rowBounds);
 
 	//게시글 상세 정보 가져오기 
 	@Select("select t2.user_name as content_writer_name, " + 

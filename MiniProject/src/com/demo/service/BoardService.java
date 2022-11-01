@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -28,6 +29,12 @@ public class BoardService {
 
 	@Autowired
 	private BoardMapper boardMapper;
+	
+	@Value("${page.listcnt}")
+	private int page_listcnt;
+	
+	@Value("${page.paginationcnt}")
+	private int page_paginationcnt;
 
 	// 서버로 업로드 된 파일을 업로드 폴더에 저장하고 파일의 이름을 리턴하는 메소드
 	private String saveUploadFile(MultipartFile upload_file) {
@@ -61,9 +68,14 @@ public class BoardService {
 		return boardMapper.getBoardInfoName(board_info_idx);
 	}
 
-	// 게시판별로 해당하는 게시글들을 불러오기
-	public List<ContentBean> getContentList(int board_info_idx) {
-		return boardMapper.getContentList(board_info_idx);
+	// 게시판별로 해당하는 게시글들을 불러오기, 페이징 추가
+	public List<ContentBean> getContentList(int board_info_idx, int page) {
+		//시작인덱스번호 = (페이지 - 1) * 10(페이지당게시물갯수)
+		int start = (page - 1) * page_listcnt;
+		//마이바티스의 RowBounds 클래스를 사용해서 시작글 번호, 가져올 갯수
+		RowBounds rowBounds = new RowBounds(start, page_listcnt);
+		//매퍼에서 처리하도록 rowBounds 객체를 매개변수로 추가
+		return boardMapper.getContentList(board_info_idx, rowBounds);
 	}
 
 	// 한개의 게시글의 정보들을 가져오기
