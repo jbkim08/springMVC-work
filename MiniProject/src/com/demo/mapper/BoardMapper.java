@@ -35,7 +35,7 @@ public interface BoardMapper {
 	//게시글 상세 정보 가져오기 
 	@Select("select t2.user_name as content_writer_name, " + 
 			"to_char(t1.content_date, 'YYYY-MM-DD') as content_date," + 
-			"t1.content_subject, t1.content_text, t1.content_file " + 
+			"t1.content_subject, t1.content_text, t1.content_file, t1.content_writer_idx " + 
 			"from content_table t1 join user_table t2 " + 
 			"on t1.content_writer_idx = t2.user_idx " + 
 			"and content_idx = #{ ? }")

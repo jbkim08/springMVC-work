@@ -2,6 +2,7 @@ package com.demo.controller;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.demo.beans.ContentBean;
+import com.demo.beans.LoginUserBean;
 import com.demo.service.BoardService;
 
 @Controller
@@ -23,6 +25,9 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	//현재 로그인유저객체
+	@Resource(name = "loginUserBean")
+	private LoginUserBean loginUserBean;
 
 	@GetMapping("/main")
 	public String main(@RequestParam("board_info_idx") int board_info_idx, Model model) {
@@ -42,6 +47,8 @@ public class BoardController {
 					   @RequestParam("content_idx") int content_idx,
 					   Model model) {
 		model.addAttribute("board_info_idx", board_info_idx);
+		model.addAttribute("content_idx", content_idx);  //글번호
+		model.addAttribute("loginUserBean", loginUserBean);//로그인정보
 		//글 번호로 dB에서 게시글 내용 가져오기
 		ContentBean readContentBean = boardService.getContentInfo(content_idx);
 		model.addAttribute("readContentBean", readContentBean);
