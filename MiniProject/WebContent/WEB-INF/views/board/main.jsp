@@ -40,7 +40,7 @@
               <c:forEach var="obj" items="${contentList }" >
               <tr>
                 <td class="text-center d-none d-md-table-cell">${obj.content_idx }</td>
-                <td><a href="${root }board/read?board_info_idx=${board_info_idx}&content_idx=${obj.content_idx }">${obj.content_subject }</a></td>
+                <td><a href="${root }board/read?board_info_idx=${board_info_idx}&page=${page}&content_idx=${obj.content_idx }">${obj.content_subject }</a></td>
                 <td class="text-center d-none d-md-table-cell">${obj.content_writer_name }</td>
                 <td class="text-center d-none d-md-table-cell">${obj.content_date }</td>
               </tr>
@@ -89,7 +89,7 @@
                 </c:when>
                 <c:otherwise>
                   <li class="page-item">
-                	<a href="${root}board/main?board_info_idx=${board_info_idx}&page=${pageBean.nextPage}" class="page-link">이전</a>
+                	<a href="${root}board/main?board_info_idx=${board_info_idx}&page=${pageBean.nextPage}" class="page-link">다음</a>
               	  </li>
                 </c:otherwise>
               </c:choose>

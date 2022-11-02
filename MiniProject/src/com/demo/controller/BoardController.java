@@ -37,6 +37,7 @@ public class BoardController {
 		
 		String boardInfoName = boardService.getBoardInfoName(board_info_idx);
 		model.addAttribute("boardInfoName", boardInfoName);
+		model.addAttribute("page", page);
 		
 		List<ContentBean> contentList = boardService.getContentList(board_info_idx, page);
 		model.addAttribute("contentList", contentList);
@@ -50,7 +51,9 @@ public class BoardController {
 	@GetMapping("/read")
 	public String read(@RequestParam("board_info_idx") int board_info_idx,
 					   @RequestParam("content_idx") int content_idx,
+					   @RequestParam("page") int page,
 					   Model model) {
+		model.addAttribute("page", page);
 		model.addAttribute("board_info_idx", board_info_idx);
 		model.addAttribute("content_idx", content_idx);  //글번호
 		model.addAttribute("loginUserBean", loginUserBean);//로그인정보
@@ -83,21 +86,27 @@ public class BoardController {
 	
 	@GetMapping("/modify")
 	public String modify(@RequestParam("board_info_idx") int board_info_idx,
-						 @RequestParam("content_idx") int content_idx, Model model,
-						 @ModelAttribute("modifyContentBean") ContentBean modifyContentBean) {
+						 @RequestParam("content_idx") int content_idx, 
+						 @ModelAttribute("modifyContentBean") ContentBean modifyContentBean,
+						 @RequestParam("page") int page,
+						 Model model) {
 		//전달된 게시판번호와 게시글번호를 빈 객체 modify빈에 입력
 		modifyContentBean.setContent_board_idx(board_info_idx);
 		modifyContentBean.setContent_idx(content_idx);
 		
 		boardService.getContents(modifyContentBean); //나머지 정보들을 입력
 		model.addAttribute("modifyContentBean", modifyContentBean);
+		model.addAttribute("page", page);
 		
 		return "board/modify";
 	}
 	
 	@PostMapping("/modify_pro")
 	public String modify_pro(@Valid @ModelAttribute("modifyContentBean") ContentBean modifyContentBean,
-							 BindingResult result) {
+							 @RequestParam("page") int page,
+							 BindingResult result,
+							 Model model) {
+		model.addAttribute("page", page);
 		
 		if(result.hasErrors()) {
 			return "board/modify";
